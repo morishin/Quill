@@ -30,6 +30,11 @@
     return self;
 }
 
+- (void)loadView {
+    [super loadView];
+    [textView_ setAutomaticQuoteSubstitutionEnabled:NO];
+}
+
 #pragma mark - IBActions
 
 - (IBAction)pressAdd:(id)sender {
