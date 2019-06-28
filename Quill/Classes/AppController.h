@@ -17,7 +17,6 @@
     MainViewController *mainViewController_;
 }
 - (void)openMainWindow;
-- (void)openPreferenceWindow;
 - (void)keyUp:(unichar)character;
 
 @end

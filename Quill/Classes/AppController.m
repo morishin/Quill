@@ -11,6 +11,7 @@
 @interface AppController () {
     TrieTree *trieTree_;
     KeyMonitor *keyMonitor_;
+    __weak NSWindow * _mainWindow;
 }
 @end
 
@@ -22,6 +23,7 @@
         trieTree_ = [TrieTree sharedTrieTree];
         keyMonitor_ = [[KeyMonitor alloc] init];
         keyMonitor_.delegte = self;
+        _mainWindow = nil;
     }
     return self;
 }
@@ -35,7 +37,7 @@
     CGEventRef pasteCommandUp = CGEventCreateKeyboardEvent(source, kVK_ANSI_V, NO);
     CGEventSetFlags(pasteCommandDown, kCGEventFlagMaskCommand);
     
-    CGEventTapLocation loc = kCGAnnotatedSessionEventTap;
+    CGEventTapLocation loc = kCGSessionEventTap;
     
     for (int i=0; i<nDeletes; i++) {
         CGEventPost(loc, deleteDown);
@@ -53,15 +55,14 @@
 
 #pragma mark
 - (void)openMainWindow {
-    mainViewController_ = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
-    NSWindow *window = [self createWindowWithContentView:mainViewController_.view];
-    mainWindowController_ = [[NSWindowController alloc] initWithWindow:window];
+    if (_mainWindow == nil) {
+        mainViewController_ = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
+        _mainWindow = [self createWindowWithContentView:mainViewController_.view];
+        [_mainWindow setTitle:@"Quill"];
+        mainWindowController_ = [[NSWindowController alloc] initWithWindow:_mainWindow];
+    }
     [mainWindowController_ showWindow:self];
-    //[mainWindowController_.window orderFront:self]; //not working
-}
-
-- (void)openPreferenceWindow {
-    //
+    [NSApp activateIgnoringOtherApps:YES];
 }
 
 - (NSWindow *)createWindowWithContentView:(NSView *)view {
@@ -109,8 +110,8 @@
             [pboard setString:data forType:NSPasteboardTypeString];
             
             [self postDeleteAndPasteEvent:depth-1];
-            
-            // must wait for completion of paste (it looks bad solution...)
+
+            // must wait for cotion of paste (it looks bad solution...)
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
             
             NSPasteboardItem *item;

@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AppController.h"
+#import "NSApplication+SelfRelaunch.h"
 
 #define MENU_ITEM_OPEN @"Open"
 #define MENU_ITEM_PREFERENCES @"Preferences"
@@ -25,6 +26,15 @@
     [self setupStatusItem];
     
     appController_ = [[AppController alloc] init];
+
+    NSDictionary *options = @{(__bridge id) kAXTrustedCheckOptionPrompt : @YES};
+    BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef) options);
+    if (!accessibilityEnabled) {
+        NSAlert *alert = [NSAlert alertWithMessageText:@"Add Quill.app to the list in Accessibility preference pane." defaultButton:@"Restart Quill" alternateButton:nil otherButton:nil informativeTextWithFormat:@"(System Preferences > Security & Privacy > Privacy > Accessibility)\n\nAnd you need to restart this app."];
+        if ([alert runModal] == NSAlertDefaultReturn) {
+            [NSApp relaunchAfterDelay:0.5];
+        }
+    }
 }
 
 - (void)setupStatusItem {
@@ -35,7 +45,6 @@
     [statusItem_ setImage:[NSImage imageNamed:@"quill"]];
     [statusItem_ setMenu:statusMenu_];
     [statusMenu_ addItemWithTitle:MENU_ITEM_OPEN action:@selector(openWindow:) keyEquivalent:@""];
-    //[statusMenu_ addItemWithTitle:MENU_ITEM_PREFERENCES action:@selector(openWindow:) keyEquivalent:@""];
     [statusMenu_ addItemWithTitle:MENU_ITEM_QUIT action:@selector(terminate:) keyEquivalent:@""];
 }
 
@@ -44,17 +53,12 @@
     if ([itemName isEqualToString:MENU_ITEM_OPEN]
         && [appController_ respondsToSelector:@selector(openMainWindow)]) {
         [appController_ openMainWindow];
-    } else if ([itemName isEqualToString:MENU_ITEM_PREFERENCES]
-                && [appController_ respondsToSelector:@selector(openPreferenceWindow)]) {
-        [appController_ openPreferenceWindow];
+//    } else if ([itemName isEqualToString:MENU_ITEM_PREFERENCES]
+//                && [appController_ respondsToSelector:@selector(openPreferenceWindow)]) {
+//        [appController_ openPreferenceWindow];
     } else {
         ALog(@"invalid menu item");
     }
-}
-
-- (void)applicationWillTerminate:(NSNotification *)notification
-{
-
 }
 
 @end

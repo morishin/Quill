@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B65CDAD22C683A5008E527F /* NSApplication+SelfRelaunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B65CDAB22C683A5008E527F /* NSApplication+SelfRelaunch.m */; };
 		C8430682183C95010096ACCC /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8430680183C95010096ACCC /* MainViewController.m */; };
 		C8430683183C95010096ACCC /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8430681183C95010096ACCC /* MainViewController.xib */; };
 		C869F11E18340A3600F00417 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C869F11D18340A3600F00417 /* AppDelegate.m */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B65CDAB22C683A5008E527F /* NSApplication+SelfRelaunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSApplication+SelfRelaunch.m"; path = "Classes/NSApplication+SelfRelaunch.m"; sourceTree = "<group>"; };
+		5B65CDAC22C683A5008E527F /* NSApplication+SelfRelaunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSApplication+SelfRelaunch.h"; path = "Classes/NSApplication+SelfRelaunch.h"; sourceTree = "<group>"; };
 		C843067F183C95010096ACCC /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
 		C8430680183C95010096ACCC /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/MainViewController.m; sourceTree = "<group>"; };
 		C8430681183C95010096ACCC /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainViewController.xib; path = Classes/MainViewController.xib; sourceTree = "<group>"; };
@@ -111,6 +114,8 @@
 		C8F20A15184B4953007722AD /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				5B65CDAC22C683A5008E527F /* NSApplication+SelfRelaunch.h */,
+				5B65CDAB22C683A5008E527F /* NSApplication+SelfRelaunch.m */,
 				C8F20A0F184ADE36007722AD /* NSTextView+Command.h */,
 				C8F20A10184ADE36007722AD /* NSTextView+Command.m */,
 				C8F20A12184B3911007722AD /* NSTextField+Command.h */,
@@ -249,6 +254,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -297,6 +303,7 @@
 				C8430682183C95010096ACCC /* MainViewController.m in Sources */,
 				C869F12218340A6D00F00417 /* trie.c in Sources */,
 				C8F20A11184ADE36007722AD /* NSTextView+Command.m in Sources */,
+				5B65CDAD22C683A5008E527F /* NSApplication+SelfRelaunch.m in Sources */,
 				C8F20A14184B3911007722AD /* NSTextField+Command.m in Sources */,
 				C8FDE64B181E6B1C002896A7 /* main.m in Sources */,
 			);

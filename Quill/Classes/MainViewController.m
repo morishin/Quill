@@ -13,13 +13,16 @@
     TrieTree *trieTree_;
     NSTextView *textView_;
     NSTableView *tableView_;
+    __weak NSView *emptyView_;
+    __weak NSButton *saveButton_;
+    __weak NSButton *deleteButton_;
 }
 
 @end
 
 @implementation MainViewController
 
-@synthesize tableView = tableView_, textView = textView_;
+@synthesize tableView = tableView_, textView = textView_, emptyView = emptyView_, saveButton = saveButton_, deleteButton = deleteButton_;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +36,7 @@
 - (void)loadView {
     [super loadView];
     [textView_ setAutomaticQuoteSubstitutionEnabled:NO];
+    [self updateButtonsState];
 }
 
 #pragma mark - IBActions
@@ -45,10 +49,12 @@
                                    alternateButton:@"Cancel"
                                        otherButton:nil
                          informativeTextWithFormat:@""];
-    
+
     NSTextField *input = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 250, 24)];
     [alert setAccessoryView:input];
+    
     NSInteger button = [alert runModal];
+
     if (button == NSAlertDefaultReturn) {
         [input validateEditing];
         new_abbreviation = [input stringValue];
@@ -66,12 +72,23 @@
 
 - (IBAction)pressSave:(id)sender {
     [trieTree_ addSnippetWithKey:trieTree_.snippets[tableView_.selectedRow][0] andValue:[NSString stringWithString:textView_.string]];
+    [self updateButtonsState];
 }
 
 - (IBAction)pressDelete:(id)sender {
-    [trieTree_ removeSnippetWithKey:trieTree_.snippets[tableView_.selectedRow][0]];
-    [tableView_ selectRowIndexes:[NSIndexSet indexSetWithIndex:-1] byExtendingSelection:NO];
-    [tableView_ reloadData];
+    NSAlert *alert = [NSAlert alertWithMessageText:@"Are you sure you want to delete?"
+                                     defaultButton:@"Delete"
+                                   alternateButton:@"Cancel"
+                                       otherButton:nil
+                         informativeTextWithFormat:@""];
+    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSAlertDefaultReturn) {
+            [trieTree_ removeSnippetWithKey:trieTree_.snippets[tableView_.selectedRow][0]];
+            [tableView_ deselectAll:self];
+            [tableView_ reloadData];
+            [self updateButtonsState];
+        }
+    }];
 }
 
 #pragma mark - NSTableView Data Source
@@ -94,18 +111,42 @@
     if (row == -1) {
         [textView_ setString:@""];
         [textView_ setEditable:NO];
-        [textView_ setBackgroundColor:[NSColor colorWithCalibratedRed:242.0/255 green:242.0/255 blue:242.0/255 alpha:1.0]];
+        [emptyView_ setHidden:NO];
+        [deleteButton_ setEnabled:NO];
     } else {
         [textView_ setString:trieTree_.snippets[row][1]];
         [textView_ setEditable:YES];
-        [textView_ setBackgroundColor:[NSColor whiteColor]];
+        [emptyView_ setHidden:YES];
+        [deleteButton_ setEnabled:YES];
     }
+
+    [self updateButtonsState];
 }
 
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     if (![object isEqualToString:@""]) {
         [trieTree_ updateSnippetKeyFrom:trieTree_.snippets[row][0] To:(NSString *)object];
         [tableView reloadData];
+    }
+}
+
+#pragma mark - NSTextViewDelegate
+
+- (void)textDidChange:(NSNotification *)notification {
+    [self updateButtonsState];
+}
+
+- (BOOL)doesSelectedItemHaveUnsavedChanges {
+    return tableView_.selectedRow < trieTree_.snippets.count && ![textView_.string isEqualToString:trieTree_.snippets[tableView_.selectedRow][1]];
+}
+
+- (void)updateButtonsState {
+    if (self.doesSelectedItemHaveUnsavedChanges) {
+        [saveButton_ setTitle:@"Save *"];
+        [saveButton_ setEnabled:YES];
+    } else {
+        [saveButton_ setTitle:@"Save"];
+        [saveButton_ setEnabled:NO];
     }
 }
 
