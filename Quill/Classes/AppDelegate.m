@@ -30,9 +30,12 @@
     NSDictionary *options = @{(__bridge id) kAXTrustedCheckOptionPrompt : @YES};
     BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef) options);
     if (!accessibilityEnabled) {
-        NSAlert *alert = [NSAlert alertWithMessageText:@"Add Quill.app to the list in Accessibility preference pane." defaultButton:@"Restart Quill" alternateButton:nil otherButton:nil informativeTextWithFormat:@"(System Preferences > Security & Privacy > Privacy > Accessibility)\n\nAnd you need to restart this app."];
-        if ([alert runModal] == NSAlertDefaultReturn) {
+        NSAlert *alert = [NSAlert alertWithMessageText:@"Add Quill.app to the list in Accessibility preference pane." defaultButton:@"Restart Quill" alternateButton:@"Quit" otherButton:nil informativeTextWithFormat:@"(System Preferences > Security & Privacy > Privacy > Accessibility)\n\nAnd you need to restart this app."];
+        NSModalResponse response = [alert runModal];
+        if (response == NSAlertDefaultReturn) {
             [NSApp relaunchAfterDelay:0.5];
+        } else if (response == NSAlertAlternateReturn) {
+            [NSApp terminate:nil];
         }
     }
 }
@@ -40,9 +43,11 @@
 - (void)setupStatusItem {
     NSMenu *statusMenu_ = [[NSMenu alloc] init];
     NSStatusBar *systemStatusBar = [NSStatusBar systemStatusBar];
-    statusItem_ = [systemStatusBar statusItemWithLength:NSVariableStatusItemLength];
+    statusItem_ = [systemStatusBar statusItemWithLength:NSSquareStatusItemLength];
     [statusItem_ setHighlightMode:YES];
-    [statusItem_ setImage:[NSImage imageNamed:@"quill"]];
+    NSImage *image = [NSImage imageNamed:@"menu_icon"];
+    [image setTemplate:YES];
+    [statusItem_ setImage:image];
     [statusItem_ setMenu:statusMenu_];
     [statusMenu_ addItemWithTitle:MENU_ITEM_OPEN action:@selector(openWindow:) keyEquivalent:@""];
     [statusMenu_ addItemWithTitle:MENU_ITEM_QUIT action:@selector(terminate:) keyEquivalent:@""];

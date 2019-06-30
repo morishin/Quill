@@ -17,7 +17,6 @@
 		C869F12E18347B0B00F00417 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = C869F12D18347B0B00F00417 /* AppController.m */; };
 		C8F20A11184ADE36007722AD /* NSTextView+Command.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F20A10184ADE36007722AD /* NSTextView+Command.m */; };
 		C8F20A14184B3911007722AD /* NSTextField+Command.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F20A13184B3911007722AD /* NSTextField+Command.m */; };
-		C8F20A17184B5F04007722AD /* quill.png in Resources */ = {isa = PBXBuildFile; fileRef = C8F20A16184B5F04007722AD /* quill.png */; };
 		C8FDE63F181E6B1C002896A7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8FDE63E181E6B1C002896A7 /* Cocoa.framework */; };
 		C8FDE649181E6B1C002896A7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C8FDE647181E6B1C002896A7 /* InfoPlist.strings */; };
 		C8FDE64B181E6B1C002896A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C8FDE64A181E6B1C002896A7 /* main.m */; };
@@ -57,7 +56,6 @@
 		C8F20A10184ADE36007722AD /* NSTextView+Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTextView+Command.m"; path = "Classes/NSTextView+Command.m"; sourceTree = "<group>"; };
 		C8F20A12184B3911007722AD /* NSTextField+Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTextField+Command.h"; path = "Classes/NSTextField+Command.h"; sourceTree = "<group>"; };
 		C8F20A13184B3911007722AD /* NSTextField+Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTextField+Command.m"; path = "Classes/NSTextField+Command.m"; sourceTree = "<group>"; };
-		C8F20A16184B5F04007722AD /* quill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quill.png; sourceTree = "<group>"; };
 		C8FDE63B181E6B1C002896A7 /* Quill.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quill.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8FDE63E181E6B1C002896A7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		C8FDE641181E6B1C002896A7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -106,7 +104,6 @@
 		C869F1231834702600F00417 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C8F20A16184B5F04007722AD /* quill.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -278,7 +275,6 @@
 				C8FDE657181E6B1C002896A7 /* Images.xcassets in Resources */,
 				C8430683183C95010096ACCC /* MainViewController.xib in Resources */,
 				C8FDE64F181E6B1C002896A7 /* Credits.rtf in Resources */,
-				C8F20A17184B5F04007722AD /* quill.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
