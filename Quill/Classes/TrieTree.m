@@ -8,10 +8,8 @@
 
 #import "TrieTree.h"
 
-#define SNIPPET_FILE_PATH @"Contents/Resources/snippets.plist"
-
 @interface TrieTree () {
-    NSString *snippetFilePath_;
+    NSURL *snippetFilePath_;
     NSMutableArray *snippets_;
     Trie *trie_;
     TrieNode *currentNode_;
@@ -37,11 +35,15 @@ static TrieTree *trieTree = nil;
 {
     self = [super init];
     if (self) {
-        NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
-        snippetFilePath_ = [bundlePath stringByAppendingPathComponent:SNIPPET_FILE_PATH];
+        NSURL *applicationSupportDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
+        if (applicationSupportDirectory != nil) {
+            snippetFilePath_ = [applicationSupportDirectory URLByAppendingPathComponent:@"Quill/snippets.plist"];
+        } else {
+            snippetFilePath_ = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:@"Contents/Resources/snippets.plist"];
+        }
         
         //load Snippets from file
-        snippets_ = [[NSMutableArray alloc] initWithContentsOfFile:snippetFilePath_];
+        snippets_ = [[NSMutableArray alloc] initWithContentsOfURL:snippetFilePath_];
         if (snippets_==NULL) {
             snippets_ = [[NSMutableArray alloc] init];
         }
@@ -142,8 +144,13 @@ static TrieTree *trieTree = nil;
 }
 
 - (BOOL)writeSnippetsToFile {
-    BOOL result = [snippets_ writeToFile:snippetFilePath_ atomically:YES];
-    return result;
+    NSError *error = nil;
+    NSURL *directory = [snippetFilePath_ URLByDeletingLastPathComponent];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:directory.path]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:directory.path withIntermediateDirectories:NO attributes:nil error:&error];
+    }
+    [snippets_ writeToURL:snippetFilePath_ error:&error];
+    return error == nil;
 }
 
 - (TrieNode *)stateTransit:(unichar)character {

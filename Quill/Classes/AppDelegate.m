@@ -28,7 +28,7 @@
     appController_ = [[AppController alloc] init];
 
     NSDictionary *options = @{(__bridge id) kAXTrustedCheckOptionPrompt : @YES};
-    BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef) options);
+    BOOL accessibilityEnabled = YES;// AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef) options);
     if (!accessibilityEnabled) {
         NSAlert *alert = [NSAlert alertWithMessageText:@"Add Quill.app to the list in Accessibility preference pane." defaultButton:@"Restart Quill" alternateButton:@"Quit" otherButton:nil informativeTextWithFormat:@"(System Preferences > Security & Privacy > Privacy > Accessibility)\n\nAnd you need to restart this app."];
         NSModalResponse response = [alert runModal];
@@ -40,6 +40,10 @@
     }
 }
 
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    [self openMenuWindow];
+}
+
 - (void)setupStatusItem {
     NSMenu *statusMenu_ = [[NSMenu alloc] init];
     NSStatusBar *systemStatusBar = [NSStatusBar systemStatusBar];
@@ -49,20 +53,13 @@
     [image setTemplate:YES];
     [statusItem_ setImage:image];
     [statusItem_ setMenu:statusMenu_];
-    [statusMenu_ addItemWithTitle:MENU_ITEM_OPEN action:@selector(openWindow:) keyEquivalent:@""];
+    [statusMenu_ addItemWithTitle:MENU_ITEM_OPEN action:@selector(openMenuWindow) keyEquivalent:@""];
     [statusMenu_ addItemWithTitle:MENU_ITEM_QUIT action:@selector(terminate:) keyEquivalent:@""];
 }
 
-- (void)openWindow:(id)sender {
-    NSString *itemName = ((NSMenuItem *)sender).title;
-    if ([itemName isEqualToString:MENU_ITEM_OPEN]
-        && [appController_ respondsToSelector:@selector(openMainWindow)]) {
+- (void)openMenuWindow {
+    if ([appController_ respondsToSelector:@selector(openMainWindow)]) {
         [appController_ openMainWindow];
-//    } else if ([itemName isEqualToString:MENU_ITEM_PREFERENCES]
-//                && [appController_ respondsToSelector:@selector(openPreferenceWindow)]) {
-//        [appController_ openPreferenceWindow];
-    } else {
-        ALog(@"invalid menu item");
     }
 }
 
