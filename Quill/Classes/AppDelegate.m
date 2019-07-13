@@ -28,13 +28,17 @@
     appController_ = [[AppController alloc] init];
 
     NSDictionary *options = @{(__bridge id) kAXTrustedCheckOptionPrompt : @YES};
-    BOOL accessibilityEnabled = YES;// AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef) options);
+    BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef) options);
     if (!accessibilityEnabled) {
-        NSAlert *alert = [NSAlert alertWithMessageText:@"Add Quill.app to the list in Accessibility preference pane." defaultButton:@"Restart Quill" alternateButton:@"Quit" otherButton:nil informativeTextWithFormat:@"(System Preferences > Security & Privacy > Privacy > Accessibility)\n\nAnd you need to restart this app."];
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Add Quill.app to the list in Accessibility preference pane.";
+        [alert addButtonWithTitle:@"Restart Quill"];
+        [alert addButtonWithTitle:@"Quit"];
+        alert.informativeText = @"(System Preferences > Security & Privacy > Privacy > Accessibility)\n\nAnd you need to restart this app.";
         NSModalResponse response = [alert runModal];
-        if (response == NSAlertDefaultReturn) {
+        if (response == NSAlertFirstButtonReturn) {
             [NSApp relaunchAfterDelay:0.5];
-        } else if (response == NSAlertAlternateReturn) {
+        } else if (response == NSAlertSecondButtonReturn) {
             [NSApp terminate:nil];
         }
     }

@@ -43,19 +43,18 @@
 
 - (IBAction)pressAdd:(id)sender {
     NSString *new_abbreviation;
-    
-    NSAlert *alert = [NSAlert alertWithMessageText:@"Input an abbreviation of a new snippet."
-                                     defaultButton:@"Add"
-                                   alternateButton:@"Cancel"
-                                       otherButton:nil
-                         informativeTextWithFormat:@""];
+
+    NSAlert *alert = [NSAlert new];
+    alert.messageText = @"Input an abbreviation of a new snippet.";
+    [alert addButtonWithTitle:@"Add"];
+    [alert addButtonWithTitle:@"Cancel"];
 
     NSTextField *input = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 250, 24)];
     [alert setAccessoryView:input];
     
     NSInteger button = [alert runModal];
 
-    if (button == NSAlertDefaultReturn) {
+    if (button == NSAlertFirstButtonReturn) {
         [input validateEditing];
         new_abbreviation = [input stringValue];
     } else {
@@ -76,16 +75,15 @@
 }
 
 - (IBAction)pressDelete:(id)sender {
-    NSAlert *alert = [NSAlert alertWithMessageText:@"Are you sure you want to delete?"
-                                     defaultButton:@"Delete"
-                                   alternateButton:@"Cancel"
-                                       otherButton:nil
-                         informativeTextWithFormat:@""];
+    NSAlert *alert = [NSAlert new];
+    alert.messageText = @"Are you sure you want to delete?";
+    [alert addButtonWithTitle:@"Delete"];
+    [alert addButtonWithTitle:@"Cancel"];
     [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
-        if (returnCode == NSAlertDefaultReturn) {
-            [trieTree_ removeSnippetWithKey:trieTree_.snippets[tableView_.selectedRow][0]];
-            [tableView_ deselectAll:self];
-            [tableView_ reloadData];
+        if (returnCode == NSAlertFirstButtonReturn) {
+            [self->trieTree_ removeSnippetWithKey:self->trieTree_.snippets[self->tableView_.selectedRow][0]];
+            [self->tableView_ deselectAll:self];
+            [self->tableView_ reloadData];
             [self updateButtonsState];
         }
     }];

@@ -67,9 +67,9 @@
 
 - (NSWindow *)createWindowWithContentView:(NSView *)view {
     NSRect frame = NSMakeRect(0, 0, view.frame.size.width, view.frame.size.height+22);
-    NSUInteger styleMask = (NSTitledWindowMask
-                            | NSClosableWindowMask
-                            | NSMiniaturizableWindowMask
+    NSUInteger styleMask = (NSWindowStyleMaskTitled
+                            | NSWindowStyleMaskClosable
+                            | NSWindowStyleMaskMiniaturizable
                             /*| NSResizableWindowMask*/);
     NSRect rect = [NSWindow contentRectForFrameRect:frame styleMask:styleMask];
     NSWindow *window = [[NSWindow alloc] initWithContentRect:rect

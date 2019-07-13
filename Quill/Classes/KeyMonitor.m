@@ -18,7 +18,7 @@
 {
     self = [super init];
     if (self) {
-        eventMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:NSKeyUpMask
+        eventMonitor = [NSEvent addGlobalMonitorForEventsMatchingMask:NSEventMaskKeyUp
                                                               handler:^(NSEvent *event) {
             if (event.characters.length>0) {
                 unichar c = [event.characters characterAtIndex:0];

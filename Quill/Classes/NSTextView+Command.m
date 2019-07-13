@@ -13,7 +13,7 @@
 //cf. http://sunbruce.wordpress.com/2008/05/19/how-to-enable-keyboard-copycutpaste-shortcuts-in-nstextfield/
 - (BOOL)performKeyEquivalent:(NSEvent *)theEvent
 {
-    if (([theEvent type] == NSKeyDown) && ([theEvent modifierFlags] & NSCommandKeyMask))
+    if (([theEvent type] == NSEventTypeKeyDown) && ([theEvent modifierFlags] & NSEventModifierFlagCommand))
     {
         NSResponder * responder = [self.window firstResponder];
         
