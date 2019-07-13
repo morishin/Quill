@@ -17,6 +17,7 @@
 @interface AppDelegate () {
     NSStatusItem *statusItem_;
     AppController *appController_;
+    BOOL accessibilityEnabled;
 }
 @end
 
@@ -28,7 +29,7 @@
     appController_ = [[AppController alloc] init];
 
     NSDictionary *options = @{(__bridge id) kAXTrustedCheckOptionPrompt : @YES};
-    BOOL accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef) options);
+    accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef) options);
     if (!accessibilityEnabled) {
         NSAlert *alert = [NSAlert new];
         alert.messageText = @"Add Quill.app to the list in Accessibility preference pane.";
@@ -41,10 +42,13 @@
         } else if (response == NSAlertSecondButtonReturn) {
             [NSApp terminate:nil];
         }
+    } else {
+        [self openMenuWindow];
     }
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
+    if (!accessibilityEnabled) { return; }
     [self openMenuWindow];
 }
 

@@ -241,6 +241,11 @@
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Shintaro Morikawa";
 				TargetAttributes = {
+					C8FDE63A181E6B1C002896A7 = {
+						DevelopmentTeam = 4GERXBURZN;
+						LastSwiftMigration = 1020;
+						ProvisioningStyle = Automatic;
+					};
 					C8FDE65B181E6B1D002896A7 = {
 						TestTargetID = C8FDE63A181E6B1C002896A7;
 					};
@@ -442,12 +447,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 4GERXBURZN;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Quill/Quill-Prefix.pch";
 				INFOPLIST_FILE = "Quill/Quill-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.morishin.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Quill;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Quill/Quill-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -456,12 +470,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 4GERXBURZN;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Quill/Quill-Prefix.pch";
 				INFOPLIST_FILE = "Quill/Quill-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.morishin.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Quill;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Quill/Quill-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

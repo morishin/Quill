@@ -9,13 +9,16 @@
 #import "MainViewController.h"
 #import "TrieTree.h"
 
-@interface MainViewController () {
+@interface MainViewController () <NSWindowDelegate> {
     TrieTree *trieTree_;
     NSTextView *textView_;
     NSTableView *tableView_;
     __weak NSView *emptyView_;
     __weak NSButton *saveButton_;
     __weak NSButton *deleteButton_;
+    id eventMonitor;
+    BOOL shouldSuppressConfirm;
+    BOOL isConfirmShown;
 }
 
 @end
@@ -29,6 +32,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         trieTree_ = [TrieTree sharedTrieTree];
+        shouldSuppressConfirm = NO;
+        isConfirmShown = NO;
     }
     return self;
 }
@@ -36,7 +41,61 @@
 - (void)loadView {
     [super loadView];
     [textView_ setAutomaticQuoteSubstitutionEnabled:NO];
+    [tableView_ setAllowsMultipleSelection:NO];
+    [tableView_ setDoubleAction:@selector(tableViewCellDidDoubleClick:)];
     [self updateButtonsState];
+}
+
+- (void)viewWillAppear {
+    [super viewWillAppear];
+    self.view.window.delegate = self;
+    eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskKeyDown handler:^(NSEvent *theEvent) {
+        if ([theEvent modifierFlags] & NSEventModifierFlagCommand && [theEvent keyCode] == 1) {
+            // ⌘S
+            [self saveCurrentSnippet];
+            return (NSEvent *)nil;
+        } else if ([theEvent modifierFlags] & NSEventModifierFlagCommand && [theEvent keyCode] == 13) {
+            // ⌘W
+            [self.view.window performClose:nil];
+            return (NSEvent *)nil;
+        } else if ([theEvent keyCode] == 51){
+            if (self.view.window.firstResponder == self.tableView) {
+                [self deleteSelectedItem];
+            }
+        }
+        return theEvent;
+    }];
+}
+
+- (void)viewDidDisappear {
+    [super viewDidDisappear];
+    [NSEvent removeMonitor:eventMonitor];
+}
+
+- (void)saveCurrentSnippet {
+    if (tableView_.selectedRow < 0 || tableView_.selectedRow >= trieTree_.snippets.count) {
+        return;
+    }
+    [trieTree_ addSnippetWithKey:trieTree_.snippets[tableView_.selectedRow][0] andValue:[NSString stringWithString:textView_.string]];
+    [self updateButtonsState];
+}
+
+- (void)deleteSelectedItem {
+    if (tableView_.selectedRow < 0 || tableView_.selectedRow >= trieTree_.snippets.count) {
+        return;
+    }
+    NSAlert *alert = [NSAlert new];
+    alert.messageText = @"Are you sure you want to delete?";
+    [alert addButtonWithTitle:@"Delete"];
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSAlertFirstButtonReturn) {
+            [self->trieTree_ removeSnippetWithKey:self->trieTree_.snippets[self->tableView_.selectedRow][0]];
+            [self->tableView_ deselectAll:self];
+            [self->tableView_ reloadData];
+            [self updateButtonsState];
+        }
+    }];
 }
 
 #pragma mark - IBActions
@@ -50,7 +109,9 @@
     [alert addButtonWithTitle:@"Cancel"];
 
     NSTextField *input = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 250, 24)];
+    [input setPlaceholderString:@"`img"];
     [alert setAccessoryView:input];
+    [[alert window] setInitialFirstResponder:input];
     
     NSInteger button = [alert runModal];
 
@@ -70,23 +131,15 @@
 }
 
 - (IBAction)pressSave:(id)sender {
-    [trieTree_ addSnippetWithKey:trieTree_.snippets[tableView_.selectedRow][0] andValue:[NSString stringWithString:textView_.string]];
-    [self updateButtonsState];
+    [self saveCurrentSnippet];
 }
 
 - (IBAction)pressDelete:(id)sender {
-    NSAlert *alert = [NSAlert new];
-    alert.messageText = @"Are you sure you want to delete?";
-    [alert addButtonWithTitle:@"Delete"];
-    [alert addButtonWithTitle:@"Cancel"];
-    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
-        if (returnCode == NSAlertFirstButtonReturn) {
-            [self->trieTree_ removeSnippetWithKey:self->trieTree_.snippets[self->tableView_.selectedRow][0]];
-            [self->tableView_ deselectAll:self];
-            [self->tableView_ reloadData];
-            [self updateButtonsState];
-        }
-    }];
+    [self deleteSelectedItem];
+}
+
+- (void)tableViewCellDidDoubleClick:(NSTableView *)tableView {
+    [tableView editColumn:0 row:tableView.clickedRow withEvent:nil select:YES];
 }
 
 #pragma mark - NSTableView Data Source
@@ -100,6 +153,20 @@
         return trieTree_.snippets[row][0];
     }
     return nil;
+}
+
+- (NSIndexSet *)tableView:(NSTableView *)tableView selectionIndexesForProposedSelection:(NSIndexSet *)proposedSelectionIndexes {
+    if (shouldSuppressConfirm) {
+        shouldSuppressConfirm = NO;
+        return proposedSelectionIndexes;
+    }
+    if (![self doesSelectedItemHaveUnsavedChanges]) {
+        return proposedSelectionIndexes;
+    }
+    [self confirmDiscardChangesIfNeeded:self.view.window completion:^(BOOL discard) {
+        [tableView selectRowIndexes:proposedSelectionIndexes byExtendingSelection:NO];
+    }];
+    return tableView.selectedRowIndexes;
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
@@ -146,6 +213,55 @@
         [saveButton_ setTitle:@"Save"];
         [saveButton_ setEnabled:NO];
     }
+}
+
+- (void)confirmDiscardChangesIfNeeded:(NSWindow *)window completion:(nullable void (^)(BOOL discard))completion {
+    if (isConfirmShown) { return; }
+    if ([self doesSelectedItemHaveUnsavedChanges]) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"Do you want to save the changes?";
+        [alert addButtonWithTitle:@"Save"];
+        [alert addButtonWithTitle:@"Don't Save"];
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+            if (returnCode == NSAlertFirstButtonReturn) {
+                [self saveCurrentSnippet];
+                if (completion != nil) {
+                    completion(NO);
+                }
+            } else {
+                if (completion != nil) {
+                    completion(YES);
+                }
+            }
+            [window.attachedSheet close];
+            self->isConfirmShown = NO;
+        }];
+        isConfirmShown = YES;
+    }
+}
+
+- (BOOL)textView:(NSTextView *)aTextView doCommandBySelector:(SEL)commandSelector {
+    if (commandSelector == @selector(insertTab:)) {
+        [aTextView insertText:@"    " replacementRange:NSMakeRange(-1, 0)];
+        return YES;
+    }
+    return NO;
+}
+
+#pragma mark - NSWindowDelegate
+
+- (BOOL)windowShouldClose:(NSWindow *)sender {
+    if (![self doesSelectedItemHaveUnsavedChanges]) {
+        return YES;
+    }
+    [self confirmDiscardChangesIfNeeded:sender completion:^(BOOL discard) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self->shouldSuppressConfirm = YES;
+            [self.tableView deselectAll:nil];
+            [sender close];
+        });
+    }];
+    return NO;
 }
 
 @end

@@ -44,8 +44,8 @@ static TrieTree *trieTree = nil;
         
         //load Snippets from file
         snippets_ = [[NSMutableArray alloc] initWithContentsOfURL:snippetFilePath_];
-        if (snippets_==NULL) {
-            snippets_ = [[NSMutableArray alloc] init];
+        if (snippets_ == NULL) {
+            snippets_ = [[NSMutableArray alloc] initWithArray:@[@[@"`img", @"<img src=\"\" width=\"320\"/>"]]];
         }
         
         //Create Trie-tree from snippets dictionary
@@ -184,7 +184,6 @@ static TrieTree *trieTree = nil;
             accept = next_node;
         }
     }
-    [self displayChildren:currentNode_];
     return accept;
 }
 

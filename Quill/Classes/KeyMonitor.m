@@ -30,4 +30,10 @@
     }
     return self;
 }
+
+- (void)dealloc
+{
+    [NSEvent removeMonitor:eventMonitor];
+}
+
 @end
