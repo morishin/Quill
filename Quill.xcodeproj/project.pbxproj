@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B05766522E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B05766422E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m */; };
 		5B65CDAD22C683A5008E527F /* NSApplication+SelfRelaunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B65CDAB22C683A5008E527F /* NSApplication+SelfRelaunch.m */; };
 		C8430682183C95010096ACCC /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8430680183C95010096ACCC /* MainViewController.m */; };
 		C8430683183C95010096ACCC /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8430681183C95010096ACCC /* MainViewController.xib */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B05766322E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSPasteboard+NSPasteboard_Stash.h"; path = "Classes/NSPasteboard+NSPasteboard_Stash.h"; sourceTree = "<group>"; };
+		5B05766422E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSPasteboard+NSPasteboard_Stash.m"; path = "Classes/NSPasteboard+NSPasteboard_Stash.m"; sourceTree = "<group>"; };
 		5B65CDAB22C683A5008E527F /* NSApplication+SelfRelaunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSApplication+SelfRelaunch.m"; path = "Classes/NSApplication+SelfRelaunch.m"; sourceTree = "<group>"; };
 		5B65CDAC22C683A5008E527F /* NSApplication+SelfRelaunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSApplication+SelfRelaunch.h"; path = "Classes/NSApplication+SelfRelaunch.h"; sourceTree = "<group>"; };
 		C843067F183C95010096ACCC /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
@@ -117,6 +120,8 @@
 				C8F20A10184ADE36007722AD /* NSTextView+Command.m */,
 				C8F20A12184B3911007722AD /* NSTextField+Command.h */,
 				C8F20A13184B3911007722AD /* NSTextField+Command.m */,
+				5B05766322E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.h */,
+				5B05766422E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B05766522E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m in Sources */,
 				C869F12B1834757000F00417 /* TrieTree.m in Sources */,
 				C869F12E18347B0B00F00417 /* AppController.m in Sources */,
 				C869F128183470AB00F00417 /* KeyMonitor.m in Sources */,

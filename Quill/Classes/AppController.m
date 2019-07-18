@@ -7,6 +7,7 @@
 //
 
 #import "AppController.h"
+#import "NSPasteboard+NSPasteboard_Stash.h"
 
 @interface AppController () {
     TrieTree *trieTree_;
@@ -85,44 +86,23 @@
 - (void)keyUp:(unichar)character {
     if (0<=character && character<256) {
         TrieNode *accept = [trieTree_ stateTransit:character];
-        if (accept!=NULL) {
+        if (accept != NULL) {
             NSString *data = [NSString stringWithUTF8String:accept->data];
             unsigned int depth = accept->depth;
-            
-            /*
-            // The following code loses non-string data in clipborad...
-            NSString *script = [NSString stringWithFormat:@"tell application \"System Events\"\n repeat %d times\n key code 51\n end repeat\n set buffer to the clipboard\n set the clipboard to \"%@\"\n delay 0.01\n keystroke \"v\" using command down\n delay 0.01\n set the clipboard to buffer\n end tell\n", depth-1, data];
-            NSAppleScript *key = [[NSAppleScript alloc] initWithSource:script];
-            [key executeAndReturnError:nil];
-            */
-            
-            // The following code save existing clipboard data PROBABLY...
+
+            // Save current pasteboard state
             NSPasteboard *pboard = [NSPasteboard generalPasteboard];
-            NSMutableArray *dataBuffer = [[NSMutableArray alloc] init];
-            NSMutableArray *typeBuffer = [[NSMutableArray alloc] init];
-            NSString *type;
-            for (NSPasteboardItem *item in [pboard pasteboardItems]) {
-                type = [item types][0];
-                [dataBuffer addObject:[item dataForType:type]];
-                [typeBuffer addObject:type];
-            }
+            NSArray *savedPasteboardItems = [pboard save];
+
+            // Paste snippet
             [pboard clearContents];
             [pboard setString:data forType:NSPasteboardTypeString];
-            
             [self postDeleteAndPasteEvent:depth-1];
 
-            // must wait for cotion of paste (it looks bad solution...)
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.5]];
-            
-            NSPasteboardItem *item;
-            NSMutableArray *items = [[NSMutableArray alloc] init];
-            for (int i=0; i<dataBuffer.count; i++) {
-                item = [[NSPasteboardItem alloc] init];
-                [item setData:dataBuffer[i] forType:typeBuffer[i]];
-                [items addObject:item];
-            }
-            [pboard clearContents];
-            [pboard writeObjects:items];
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+
+            // Restore current pasteboard state
+            [pboard restore:savedPasteboardItems];
         }
     }
 }
