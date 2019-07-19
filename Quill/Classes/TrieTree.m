@@ -7,6 +7,7 @@
 //
 
 #import "TrieTree.h"
+#import "NSFileManager+DirectoryLocations.h"
 
 @interface TrieTree () {
     NSURL *snippetFilePath_;
@@ -35,9 +36,9 @@ static TrieTree *trieTree = nil;
 {
     self = [super init];
     if (self) {
-        NSURL *applicationSupportDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] firstObject];
+        NSString *applicationSupportDirectory = [[NSFileManager defaultManager] applicationSupportDirectory];
         if (applicationSupportDirectory != nil) {
-            snippetFilePath_ = [applicationSupportDirectory URLByAppendingPathComponent:@"Quill/snippets.plist"];
+            snippetFilePath_ = [NSURL fileURLWithPath: [applicationSupportDirectory stringByAppendingPathComponent:@"snippets.plist"]];
         } else {
             snippetFilePath_ = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:@"Contents/Resources/snippets.plist"];
         }

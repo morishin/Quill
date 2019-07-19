@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5B05766522E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B05766422E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m */; };
+		5B4B622922E232FB0019C2A3 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4B622722E232FB0019C2A3 /* NSFileManager+DirectoryLocations.m */; };
 		5B65CDAD22C683A5008E527F /* NSApplication+SelfRelaunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B65CDAB22C683A5008E527F /* NSApplication+SelfRelaunch.m */; };
 		C8430682183C95010096ACCC /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8430680183C95010096ACCC /* MainViewController.m */; };
 		C8430683183C95010096ACCC /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8430681183C95010096ACCC /* MainViewController.xib */; };
@@ -40,6 +41,9 @@
 /* Begin PBXFileReference section */
 		5B05766322E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSPasteboard+NSPasteboard_Stash.h"; path = "Classes/NSPasteboard+NSPasteboard_Stash.h"; sourceTree = "<group>"; };
 		5B05766422E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NSPasteboard+NSPasteboard_Stash.m"; path = "Classes/NSPasteboard+NSPasteboard_Stash.m"; sourceTree = "<group>"; };
+		5B4B622622E230C90019C2A3 /* Quill.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Quill.entitlements; sourceTree = "<group>"; };
+		5B4B622722E232FB0019C2A3 /* NSFileManager+DirectoryLocations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+DirectoryLocations.m"; sourceTree = "<group>"; };
+		5B4B622822E232FB0019C2A3 /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
 		5B65CDAB22C683A5008E527F /* NSApplication+SelfRelaunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSApplication+SelfRelaunch.m"; path = "Classes/NSApplication+SelfRelaunch.m"; sourceTree = "<group>"; };
 		5B65CDAC22C683A5008E527F /* NSApplication+SelfRelaunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSApplication+SelfRelaunch.h"; path = "Classes/NSApplication+SelfRelaunch.h"; sourceTree = "<group>"; };
 		C843067F183C95010096ACCC /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 				C8F20A13184B3911007722AD /* NSTextField+Command.m */,
 				5B05766322E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.h */,
 				5B05766422E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m */,
+				5B4B622822E232FB0019C2A3 /* NSFileManager+DirectoryLocations.h */,
+				5B4B622722E232FB0019C2A3 /* NSFileManager+DirectoryLocations.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -167,6 +173,7 @@
 		C8FDE644181E6B1C002896A7 /* Quill */ = {
 			isa = PBXGroup;
 			children = (
+				5B4B622622E230C90019C2A3 /* Quill.entitlements */,
 				C869F11C18340A3600F00417 /* AppDelegate.h */,
 				C869F11D18340A3600F00417 /* AppDelegate.m */,
 				C869F126183470AA00F00417 /* KeyMonitor.h */,
@@ -250,6 +257,11 @@
 						DevelopmentTeam = 4GERXBURZN;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					C8FDE65B181E6B1D002896A7 = {
 						TestTargetID = C8FDE63A181E6B1C002896A7;
@@ -306,6 +318,7 @@
 				C869F12E18347B0B00F00417 /* AppController.m in Sources */,
 				C869F128183470AB00F00417 /* KeyMonitor.m in Sources */,
 				C869F11E18340A3600F00417 /* AppDelegate.m in Sources */,
+				5B4B622922E232FB0019C2A3 /* NSFileManager+DirectoryLocations.m in Sources */,
 				C8430682183C95010096ACCC /* MainViewController.m in Sources */,
 				C869F12218340A6D00F00417 /* trie.c in Sources */,
 				C8F20A11184ADE36007722AD /* NSTextView+Command.m in Sources */,
@@ -454,6 +467,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Quill/Quill.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -477,6 +491,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Quill/Quill.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
