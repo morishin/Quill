@@ -10,6 +10,11 @@
 		5B05766522E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B05766422E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m */; };
 		5B4B622922E232FB0019C2A3 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4B622722E232FB0019C2A3 /* NSFileManager+DirectoryLocations.m */; };
 		5B65CDAD22C683A5008E527F /* NSApplication+SelfRelaunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B65CDAB22C683A5008E527F /* NSApplication+SelfRelaunch.m */; };
+		5BFBDEAE22EB2E5400F26D63 /* LicenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFBDEAC22EB2E5400F26D63 /* LicenseManager.swift */; };
+		5BFBDEAF22EB2E5400F26D63 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFBDEAD22EB2E5400F26D63 /* ConfigManager.swift */; };
+		5BFBDEB122EB3C9000F26D63 /* String+HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFBDEB022EB3C9000F26D63 /* String+HMAC.swift */; };
+		5BFBDEB822EB3FC800F26D63 /* LicenseWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFBDEB622EB3FC800F26D63 /* LicenseWindowController.swift */; };
+		5BFBDEB922EB3FC800F26D63 /* LicenseWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5BFBDEB722EB3FC800F26D63 /* LicenseWindowController.xib */; };
 		C8430682183C95010096ACCC /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8430680183C95010096ACCC /* MainViewController.m */; };
 		C8430683183C95010096ACCC /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8430681183C95010096ACCC /* MainViewController.xib */; };
 		C869F11E18340A3600F00417 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C869F11D18340A3600F00417 /* AppDelegate.m */; };
@@ -46,6 +51,12 @@
 		5B4B622822E232FB0019C2A3 /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
 		5B65CDAB22C683A5008E527F /* NSApplication+SelfRelaunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSApplication+SelfRelaunch.m"; path = "Classes/NSApplication+SelfRelaunch.m"; sourceTree = "<group>"; };
 		5B65CDAC22C683A5008E527F /* NSApplication+SelfRelaunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSApplication+SelfRelaunch.h"; path = "Classes/NSApplication+SelfRelaunch.h"; sourceTree = "<group>"; };
+		5BFBDEAB22EB2E5400F26D63 /* Quill-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Quill-Bridging-Header.h"; sourceTree = "<group>"; };
+		5BFBDEAC22EB2E5400F26D63 /* LicenseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseManager.swift; sourceTree = "<group>"; };
+		5BFBDEAD22EB2E5400F26D63 /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
+		5BFBDEB022EB3C9000F26D63 /* String+HMAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+HMAC.swift"; sourceTree = "<group>"; };
+		5BFBDEB622EB3FC800F26D63 /* LicenseWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseWindowController.swift; sourceTree = "<group>"; };
+		5BFBDEB722EB3FC800F26D63 /* LicenseWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LicenseWindowController.xib; sourceTree = "<group>"; };
 		C843067F183C95010096ACCC /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/MainViewController.h; sourceTree = "<group>"; };
 		C8430680183C95010096ACCC /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/MainViewController.m; sourceTree = "<group>"; };
 		C8430681183C95010096ACCC /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainViewController.xib; path = Classes/MainViewController.xib; sourceTree = "<group>"; };
@@ -115,7 +126,7 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		C8F20A15184B4953007722AD /* Categories */ = {
+		C8F20A15184B4953007722AD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				5B65CDAC22C683A5008E527F /* NSApplication+SelfRelaunch.h */,
@@ -128,8 +139,9 @@
 				5B05766422E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m */,
 				5B4B622822E232FB0019C2A3 /* NSFileManager+DirectoryLocations.h */,
 				5B4B622722E232FB0019C2A3 /* NSFileManager+DirectoryLocations.m */,
+				5BFBDEB022EB3C9000F26D63 /* String+HMAC.swift */,
 			);
-			name = Categories;
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		C8FDE632181E6B1C002896A7 = {
@@ -173,6 +185,8 @@
 		C8FDE644181E6B1C002896A7 /* Quill */ = {
 			isa = PBXGroup;
 			children = (
+				5BFBDEAD22EB2E5400F26D63 /* ConfigManager.swift */,
+				5BFBDEAC22EB2E5400F26D63 /* LicenseManager.swift */,
 				5B4B622622E230C90019C2A3 /* Quill.entitlements */,
 				C869F11C18340A3600F00417 /* AppDelegate.h */,
 				C869F11D18340A3600F00417 /* AppDelegate.m */,
@@ -185,7 +199,10 @@
 				C843067F183C95010096ACCC /* MainViewController.h */,
 				C8430680183C95010096ACCC /* MainViewController.m */,
 				C8430681183C95010096ACCC /* MainViewController.xib */,
-				C8F20A15184B4953007722AD /* Categories */,
+				5BFBDEB622EB3FC800F26D63 /* LicenseWindowController.swift */,
+				5BFBDEB722EB3FC800F26D63 /* LicenseWindowController.xib */,
+				5BFBDEAB22EB2E5400F26D63 /* Quill-Bridging-Header.h */,
+				C8F20A15184B4953007722AD /* Extensions */,
 				C8FDE656181E6B1C002896A7 /* Images.xcassets */,
 				C869F1231834702600F00417 /* Resources */,
 				C869F11F18340A6D00F00417 /* libs */,
@@ -296,6 +313,7 @@
 				C8FDE657181E6B1C002896A7 /* Images.xcassets in Resources */,
 				C8430683183C95010096ACCC /* MainViewController.xib in Resources */,
 				C8FDE64F181E6B1C002896A7 /* Credits.rtf in Resources */,
+				5BFBDEB922EB3FC800F26D63 /* LicenseWindowController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,12 +336,16 @@
 				C869F12E18347B0B00F00417 /* AppController.m in Sources */,
 				C869F128183470AB00F00417 /* KeyMonitor.m in Sources */,
 				C869F11E18340A3600F00417 /* AppDelegate.m in Sources */,
+				5BFBDEAF22EB2E5400F26D63 /* ConfigManager.swift in Sources */,
 				5B4B622922E232FB0019C2A3 /* NSFileManager+DirectoryLocations.m in Sources */,
+				5BFBDEB822EB3FC800F26D63 /* LicenseWindowController.swift in Sources */,
 				C8430682183C95010096ACCC /* MainViewController.m in Sources */,
 				C869F12218340A6D00F00417 /* trie.c in Sources */,
 				C8F20A11184ADE36007722AD /* NSTextView+Command.m in Sources */,
 				5B65CDAD22C683A5008E527F /* NSApplication+SelfRelaunch.m in Sources */,
+				5BFBDEAE22EB2E5400F26D63 /* LicenseManager.swift in Sources */,
 				C8F20A14184B3911007722AD /* NSTextField+Command.m in Sources */,
+				5BFBDEB122EB3C9000F26D63 /* String+HMAC.swift in Sources */,
 				C8FDE64B181E6B1C002896A7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,6 +534,7 @@
 		C8FDE670181E6B1D002896A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Quill.app/Contents/MacOS/Snippet";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -534,6 +557,7 @@
 		C8FDE671181E6B1D002896A7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Quill.app/Contents/MacOS/Snippet";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (

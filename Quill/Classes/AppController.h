@@ -14,9 +14,11 @@
 
 @interface AppController : NSObject<KeyMonitorDelegate> {
     NSWindowController *mainWindowController_;
+    NSWindowController *licenseWindowController_;
     MainViewController *mainViewController_;
 }
 - (void)openMainWindow;
+- (void)openLicenseWindow;
 - (void)keyUp:(unichar)character;
 
 @end
