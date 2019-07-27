@@ -45,7 +45,10 @@
     [textView_ setAutomaticQuoteSubstitutionEnabled:NO];
     [tableView_ setAllowsMultipleSelection:NO];
     [tableView_ setDoubleAction:@selector(tableViewCellDidDoubleClick:)];
-    [self updateButtonsState];
+    NSMenu *menu = [NSMenu new];
+    [menu addItemWithTitle:@"Add" action:@selector(addItem) keyEquivalent:@""];
+    [menu addItemWithTitle:@"Delete" action:@selector(deleteClickedItem) keyEquivalent:@""];
+    tableView_.menu = menu;
 }
 
 - (void)viewWillAppear {
@@ -68,6 +71,7 @@
         return theEvent;
     }];
     [tableView_ reloadData];
+    [self updateButtonsState];
 }
 
 - (void)viewDidDisappear {
@@ -84,21 +88,11 @@
 }
 
 - (void)deleteSelectedItem {
-    if (tableView_.selectedRow < 0 || tableView_.selectedRow >= trieTree_.snippets.count) {
-        return;
-    }
-    NSAlert *alert = [NSAlert new];
-    alert.messageText = @"Are you sure you want to delete?";
-    [alert addButtonWithTitle:@"Delete"];
-    [alert addButtonWithTitle:@"Cancel"];
-    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
-        if (returnCode == NSAlertFirstButtonReturn) {
-            [self->trieTree_ removeSnippetWithKey:self->trieTree_.snippets[self->tableView_.selectedRow][0]];
-            [self->tableView_ deselectAll:self];
-            [self->tableView_ reloadData];
-            [self updateButtonsState];
-        }
-    }];
+    [self deleteItem:tableView_.selectedRow];
+}
+
+- (void)deleteClickedItem {
+    [self deleteItem:tableView_.clickedRow];
 }
 
 - (void)showPurchaseAlert {
@@ -111,6 +105,24 @@
         AppDelegate *appDelegate = (AppDelegate *)NSApp.delegate;
         [appDelegate openLicenseWindow];
     }
+}
+
+- (void)deleteItem:(NSInteger)index {
+    if (index < 0 || index >= trieTree_.snippets.count) {
+        return;
+    }
+    NSAlert *alert = [NSAlert new];
+    alert.messageText = @"Are you sure you want to delete?";
+    [alert addButtonWithTitle:@"Delete"];
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSAlertFirstButtonReturn) {
+            [self->trieTree_ removeSnippetWithKey:self->trieTree_.snippets[index][0]];
+            [self->tableView_ deselectAll:self];
+            [self->tableView_ reloadData];
+            [self updateButtonsState];
+        }
+    }];
 }
 
 - (void)addItem {
