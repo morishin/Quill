@@ -8,6 +8,8 @@
 
 #import "MainViewController.h"
 #import "TrieTree.h"
+#import "AppDelegate.h"
+#import "Quill-Swift.h"
 
 @interface MainViewController () <NSWindowDelegate> {
     TrieTree *trieTree_;
@@ -65,6 +67,7 @@
         }
         return theEvent;
     }];
+    [tableView_ reloadData];
 }
 
 - (void)viewDidDisappear {
@@ -98,9 +101,24 @@
     }];
 }
 
-#pragma mark - IBActions
+- (void)showPurchaseAlert {
+    NSAlert *alert = [NSAlert new];
+    alert.messageText = @"You need purchase license to add an item.";
+    [alert addButtonWithTitle:@"Purchase License"];
+    [alert addButtonWithTitle:@"Cancel"];
+    NSModalResponse returnCode = [alert runModal];
+    if (returnCode == NSAlertFirstButtonReturn) {
+        AppDelegate *appDelegate = (AppDelegate *)NSApp.delegate;
+        [appDelegate openLicenseWindow];
+    }
+}
 
-- (IBAction)pressAdd:(id)sender {
+- (void)addItem {
+    if (![LicenseManagerForObjC isActivated]) {
+        [self showPurchaseAlert];
+        return;
+    }
+
     NSString *new_abbreviation;
 
     NSAlert *alert = [NSAlert new];
@@ -112,7 +130,7 @@
     [input setPlaceholderString:@"`img"];
     [alert setAccessoryView:input];
     [[alert window] setInitialFirstResponder:input];
-    
+
     NSInteger button = [alert runModal];
 
     if (button == NSAlertFirstButtonReturn) {
@@ -121,13 +139,19 @@
     } else {
         new_abbreviation = nil;
     }
-    
+
     if (new_abbreviation) {
         [trieTree_ addSnippetWithKey:new_abbreviation andValue:@""];
         [tableView_ reloadData];
         [tableView_ selectRowIndexes:[NSIndexSet indexSetWithIndex:trieTree_.snippets.count-1] byExtendingSelection:NO];
         [textView_.window makeFirstResponder:textView_];
     }
+}
+
+#pragma mark - IBActions
+
+- (IBAction)pressAdd:(id)sender {
+    [self addItem];
 }
 
 - (IBAction)pressSave:(id)sender {
@@ -145,7 +169,11 @@
 #pragma mark - NSTableView Data Source
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return trieTree_.snippets.count;
+    if (LicenseManagerForObjC.isActivated) {
+        return trieTree_.snippets.count;
+    } else {
+        return 1;
+    }
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {

@@ -31,3 +31,17 @@ struct LicenseManager {
         return license.licenseKey == "\(license.email)\(LicenseManager.privateKey)".sha256
     }
 }
+
+@objc class LicenseManagerForObjC: NSObject {
+    @objc class var isActivated: Bool {
+        return LicenseManager.isActivated
+    }
+
+    @objc class var email: String? {
+        return LicenseManager.loadLicense()?.email
+    }
+
+    @objc class var licenseKey: String? {
+        return LicenseManager.loadLicense()?.licenseKey
+    }
+}

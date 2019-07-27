@@ -61,7 +61,7 @@
     if (_mainWindow == nil) {
         mainViewController_ = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
         _mainWindow = [self createWindowWithContentView:mainViewController_.view];
-        [_mainWindow setTitle:@"Quill"];
+        [_mainWindow setTitle:[NSString stringWithFormat:@"Quill - %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]];
         mainWindowController_ = [[NSWindowController alloc] initWithWindow:_mainWindow];
     }
     [mainWindowController_ showWindow:self];

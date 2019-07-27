@@ -8,7 +8,7 @@ struct ConfigManager {
 
     static func configFilePath(type: ConfigType) -> URL {
         if let applicationDirectoryPath = FileManager.default.applicationSupportDirectory() {
-            return URL(fileURLWithPath: applicationDirectoryPath.appending("\(type.rawValue).plist"))
+            return URL(fileURLWithPath: applicationDirectoryPath.appending("/\(type.rawValue).plist"))
         } else {
             return Bundle.main.bundleURL.appendingPathComponent("Contents/Resources/\(type.rawValue).plist")
         }

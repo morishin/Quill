@@ -44,7 +44,7 @@ static TrieTree *trieTree = nil;
         if (snippets_ == NULL) {
             snippets_ = [[NSMutableArray alloc] initWithArray:@[@[@"`img", @"<img src=\"\" width=\"320\"/>"]]];
         }
-        
+
         //Create Trie-tree from snippets dictionary
         [self createTrie];
     }

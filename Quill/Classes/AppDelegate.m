@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "AppController.h"
 #import "NSApplication+SelfRelaunch.h"
+#import "Quill-Swift.h"
 
 #define MENU_ITEM_OPEN @"Open"
 #define MENU_ITEM_LICENSE @"Purchase License"
@@ -30,7 +31,7 @@
 
     NSDictionary *options = @{(__bridge id) kAXTrustedCheckOptionPrompt : @YES};
     accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef) options);
-    
+
 #ifdef DEBUG
     [self openMenuWindow];
 #else
@@ -78,6 +79,14 @@
 }
 
 - (void)openLicenseWindow {
+    if (LicenseManagerForObjC.isActivated) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"You have already purchased! ❤️";
+        alert.informativeText = [NSString stringWithFormat:@"Email: %@\nLicense Key: %@", LicenseManagerForObjC.email, LicenseManagerForObjC.licenseKey];
+        [alert addButtonWithTitle:@"OK"];
+        [alert runModal];
+        return;
+    }
     if ([appController_ respondsToSelector:@selector(openLicenseWindow)]) {
         [appController_ openLicenseWindow];
     }

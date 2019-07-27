@@ -8,6 +8,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="LicenseWindowController" customModule="Quill" customModuleProvider="target">
             <connections>
+                <outlet property="emailTextField" destination="gVh-bC-BTI" id="Cav-45-5MM"/>
+                <outlet property="licenseKeyTextField" destination="RUU-YV-g2U" id="e8Q-yc-p8S"/>
+                <outlet property="useLicenseButton" destination="pkE-Cm-nB5" id="3f3-I1-Vb6"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -16,15 +19,191 @@
         <window title="License" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+            <rect key="contentRect" x="196" y="240" width="495" height="270"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <rect key="frame" x="0.0" y="0.0" width="495" height="414"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ky0-v0-wBh">
+                        <rect key="frame" x="15" y="15" width="465" height="384"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="P6h-qx-Gmu">
+                                <rect key="frame" x="0.0" y="284" width="465" height="100"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XfC-j4-op0">
+                                        <rect key="frame" x="169" y="15" width="128" height="85"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="app_logo" id="VFj-NC-Ddm"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="hvX-9d-uuc"/>
+                                    <constraint firstAttribute="bottom" secondItem="XfC-j4-op0" secondAttribute="bottom" constant="15" id="kUY-wE-xu9"/>
+                                    <constraint firstItem="XfC-j4-op0" firstAttribute="centerX" secondItem="P6h-qx-Gmu" secondAttribute="centerX" id="m6g-C2-azc"/>
+                                    <constraint firstItem="XfC-j4-op0" firstAttribute="top" secondItem="P6h-qx-Gmu" secondAttribute="top" id="rvA-ou-dJv"/>
+                                </constraints>
+                            </customView>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="qNe-sh-UB7">
+                                <rect key="frame" x="-2" y="259" width="132" height="17"/>
+                                <textFieldCell key="cell" selectable="YES" title="1. Purchase License" id="hI3-aG-Mp9">
+                                    <font key="font" metaFont="systemBold"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="hqp-D4-WwA">
+                                <rect key="frame" x="15" y="211" width="450" height="40"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FwF-Zd-nf6">
+                                        <rect key="frame" x="152" y="3" width="147" height="32"/>
+                                        <buttonCell key="cell" type="push" title="Purchase License" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bHr-he-GeD">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="didClickPurchaseLicenseButton:" target="-2" id="21s-2t-VHf"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="FwF-Zd-nf6" firstAttribute="centerY" secondItem="hqp-D4-WwA" secondAttribute="centerY" id="Fq8-HH-ITn"/>
+                                    <constraint firstAttribute="height" constant="40" id="OWI-W8-Xly"/>
+                                    <constraint firstItem="FwF-Zd-nf6" firstAttribute="centerX" secondItem="hqp-D4-WwA" secondAttribute="centerX" id="WOL-xl-g7j"/>
+                                </constraints>
+                            </customView>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="YHZ-oH-DWf">
+                                <rect key="frame" x="-2" y="186" width="108" height="17"/>
+                                <textFieldCell key="cell" selectable="YES" title="2. Enter License" id="Idf-ZT-CRR">
+                                    <font key="font" metaFont="systemBold"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dWS-MT-zpF">
+                                <rect key="frame" x="15" y="0.0" width="450" height="178"/>
+                                <subviews>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Ugl-eU-rua">
+                                        <rect key="frame" x="-2" y="161" width="90" height="17"/>
+                                        <textFieldCell key="cell" selectable="YES" title="Email Address" id="bZJ-US-qdA">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVh-bC-BTI">
+                                        <rect key="frame" x="0.0" y="131" width="450" height="22"/>
+                                        <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="your-email@example.com" drawsBackground="YES" usesSingleLineMode="YES" id="txI-Sk-AFr">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="-2" id="ONZ-HW-Cdk"/>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="cpz-JY-u8D">
+                                        <rect key="frame" x="-2" y="106" width="77" height="17"/>
+                                        <textFieldCell key="cell" selectable="YES" title="License Key" id="C3E-b0-AMC">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUU-YV-g2U">
+                                        <rect key="frame" x="0.0" y="48" width="450" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="0zh-yA-Cgd"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" lineBreakMode="charWrapping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="License Key sent to your email address" drawsBackground="YES" id="JgA-3z-SuD">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <outlet property="delegate" destination="-2" id="Tls-38-bqs"/>
+                                        </connections>
+                                    </textField>
+                                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="3fB-XJ-cBV">
+                                        <rect key="frame" x="0.0" y="0.0" width="450" height="40"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pkE-Cm-nB5">
+                                                <rect key="frame" x="168" y="3" width="114" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Use License" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="j8j-uR-XXj">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="didClickUseLicenseButton:" target="-2" id="PL4-Hp-W5P"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="pkE-Cm-nB5" firstAttribute="centerX" secondItem="3fB-XJ-cBV" secondAttribute="centerX" id="1Sa-4f-rVg"/>
+                                            <constraint firstItem="pkE-Cm-nB5" firstAttribute="centerY" secondItem="3fB-XJ-cBV" secondAttribute="centerY" id="5RV-4N-J8q"/>
+                                            <constraint firstAttribute="height" constant="40" id="BQF-Ab-jlm"/>
+                                        </constraints>
+                                    </customView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="RUU-YV-g2U" secondAttribute="trailing" id="0Wh-bB-gdT"/>
+                                    <constraint firstItem="RUU-YV-g2U" firstAttribute="leading" secondItem="dWS-MT-zpF" secondAttribute="leading" id="8Wu-Fl-gHN"/>
+                                    <constraint firstItem="gVh-bC-BTI" firstAttribute="leading" secondItem="dWS-MT-zpF" secondAttribute="leading" id="VM0-AX-Ogy"/>
+                                    <constraint firstAttribute="trailing" secondItem="gVh-bC-BTI" secondAttribute="trailing" id="zII-5o-utt"/>
+                                </constraints>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="dWS-MT-zpF" secondAttribute="trailing" id="19B-LU-iuI"/>
+                            <constraint firstItem="P6h-qx-Gmu" firstAttribute="leading" secondItem="Ky0-v0-wBh" secondAttribute="leading" id="5ta-KT-Hzi"/>
+                            <constraint firstAttribute="trailing" secondItem="hqp-D4-WwA" secondAttribute="trailing" id="CFg-FK-xoJ"/>
+                            <constraint firstItem="dWS-MT-zpF" firstAttribute="leading" secondItem="Ky0-v0-wBh" secondAttribute="leading" constant="15" id="dWR-aE-mYw"/>
+                            <constraint firstItem="hqp-D4-WwA" firstAttribute="leading" secondItem="Ky0-v0-wBh" secondAttribute="leading" constant="15" id="zEf-0D-JCE"/>
+                            <constraint firstAttribute="trailing" secondItem="P6h-qx-Gmu" secondAttribute="trailing" id="ztu-cj-djr"/>
+                        </constraints>
+                        <visibilityPriorities>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                            <integer value="1000"/>
+                        </visibilityPriorities>
+                        <customSpacing>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                            <real value="3.4028234663852886e+38"/>
+                        </customSpacing>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Ky0-v0-wBh" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="15" id="JYF-Wh-XVk"/>
+                    <constraint firstAttribute="trailing" secondItem="Ky0-v0-wBh" secondAttribute="trailing" constant="15" id="MG1-Lu-rfV"/>
+                    <constraint firstAttribute="bottom" secondItem="Ky0-v0-wBh" secondAttribute="bottom" constant="15" id="Pi6-MT-Jjg"/>
+                    <constraint firstItem="Ky0-v0-wBh" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="15" id="Yvj-Do-XHf"/>
+                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
+            <point key="canvasLocation" x="139" y="146.5"/>
         </window>
     </objects>
+    <resources>
+        <image name="app_logo" width="128" height="128"/>
+    </resources>
 </document>
