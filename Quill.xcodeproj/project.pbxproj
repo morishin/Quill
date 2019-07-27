@@ -267,7 +267,7 @@
 		C8FDE633181E6B1C002896A7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "Shintaro Morikawa";
 				TargetAttributes = {
 					C8FDE63A181E6B1C002896A7 = {
@@ -481,6 +481,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
