@@ -12,6 +12,8 @@ class LicenseWindowController: NSWindowController {
     }
     
     @IBAction func didClickPurchaseLicenseButton(_ sender: NSButton) {
+        let purchaseURL = URL(string: "https://quill.morishin.me/purchase.html")!
+        NSWorkspace.shared.open(purchaseURL)
     }
 
     @IBAction func didClickUseLicenseButton(_ sender: NSButton) {
