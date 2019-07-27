@@ -8,6 +8,7 @@
 
 #import "TrieTree.h"
 #import "NSFileManager+DirectoryLocations.h"
+#import "Quill-Swift.h"
 
 @interface TrieTree () {
     NSURL *snippetFilePath_;
@@ -36,19 +37,14 @@ static TrieTree *trieTree = nil;
 {
     self = [super init];
     if (self) {
-        NSString *applicationSupportDirectory = [[NSFileManager defaultManager] applicationSupportDirectory];
-        if (applicationSupportDirectory != nil) {
-            snippetFilePath_ = [NSURL fileURLWithPath: [applicationSupportDirectory stringByAppendingPathComponent:@"snippets.plist"]];
-        } else {
-            snippetFilePath_ = [[[NSBundle mainBundle] bundleURL] URLByAppendingPathComponent:@"Contents/Resources/snippets.plist"];
-        }
-        
+        snippetFilePath_ = ConfigManagerForObjC.snippetsConfigFilePath;
+
         //load Snippets from file
         snippets_ = [[NSMutableArray alloc] initWithContentsOfURL:snippetFilePath_];
         if (snippets_ == NULL) {
             snippets_ = [[NSMutableArray alloc] initWithArray:@[@[@"`img", @"<img src=\"\" width=\"320\"/>"]]];
         }
-        
+
         //Create Trie-tree from snippets dictionary
         [self createTrie];
     }
@@ -148,7 +144,7 @@ static TrieTree *trieTree = nil;
     NSError *error = nil;
     NSURL *directory = [snippetFilePath_ URLByDeletingLastPathComponent];
     if (![[NSFileManager defaultManager] fileExistsAtPath:directory.path]) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:directory.path withIntermediateDirectories:NO attributes:nil error:&error];
+        [[NSFileManager defaultManager] createDirectoryAtPath:directory.path withIntermediateDirectories:YES attributes:nil error:&error];
     }
     [snippets_ writeToURL:snippetFilePath_ error:&error];
     return error == nil;

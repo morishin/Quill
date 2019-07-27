@@ -8,6 +8,7 @@
 
 #import "AppController.h"
 #import "NSPasteboard+NSPasteboard_Stash.h"
+#import "Quill-Swift.h"
 
 @interface AppController () {
     TrieTree *trieTree_;
@@ -56,13 +57,21 @@
 
 #pragma mark
 - (void)openMainWindow {
+    [licenseWindowController_ close];
     if (_mainWindow == nil) {
         mainViewController_ = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
         _mainWindow = [self createWindowWithContentView:mainViewController_.view];
-        [_mainWindow setTitle:@"Quill"];
+        [_mainWindow setTitle:[NSString stringWithFormat:@"Quill - %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]]];
         mainWindowController_ = [[NSWindowController alloc] initWithWindow:_mainWindow];
     }
     [mainWindowController_ showWindow:self];
+    [NSApp activateIgnoringOtherApps:YES];
+}
+
+- (void)openLicenseWindow {
+    [mainWindowController_ close];
+    licenseWindowController_ = [[LicenseWindowController alloc] initWithWindowNibName:@"LicenseWindowController"];
+    [licenseWindowController_ showWindow:self];
     [NSApp activateIgnoringOtherApps:YES];
 }
 

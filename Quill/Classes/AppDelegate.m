@@ -9,9 +9,10 @@
 #import "AppDelegate.h"
 #import "AppController.h"
 #import "NSApplication+SelfRelaunch.h"
+#import "Quill-Swift.h"
 
 #define MENU_ITEM_OPEN @"Open"
-#define MENU_ITEM_PREFERENCES @"Preferences"
+#define MENU_ITEM_LICENSE @"Purchase License"
 #define MENU_ITEM_QUIT @"Quit"
 
 @interface AppDelegate () {
@@ -30,6 +31,10 @@
 
     NSDictionary *options = @{(__bridge id) kAXTrustedCheckOptionPrompt : @YES};
     accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef) options);
+
+#ifdef DEBUG
+    [self openMenuWindow];
+#else
     if (!accessibilityEnabled) {
         NSAlert *alert = [NSAlert new];
         alert.messageText = @"Add Quill.app to the list in Accessibility preference pane.";
@@ -45,6 +50,7 @@
     } else {
         [self openMenuWindow];
     }
+#endif
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
@@ -62,12 +68,27 @@
     [statusItem_ setImage:image];
     [statusItem_ setMenu:statusMenu_];
     [statusMenu_ addItemWithTitle:MENU_ITEM_OPEN action:@selector(openMenuWindow) keyEquivalent:@""];
+    [statusMenu_ addItemWithTitle:MENU_ITEM_LICENSE action:@selector(openLicenseWindow) keyEquivalent:@""];
     [statusMenu_ addItemWithTitle:MENU_ITEM_QUIT action:@selector(terminate:) keyEquivalent:@""];
 }
 
 - (void)openMenuWindow {
     if ([appController_ respondsToSelector:@selector(openMainWindow)]) {
         [appController_ openMainWindow];
+    }
+}
+
+- (void)openLicenseWindow {
+    if (LicenseManagerForObjC.isActivated) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = @"You have already purchased! ❤️";
+        alert.informativeText = [NSString stringWithFormat:@"Email: %@\nLicense Key: %@", LicenseManagerForObjC.email, LicenseManagerForObjC.licenseKey];
+        [alert addButtonWithTitle:@"OK"];
+        [alert runModal];
+        return;
+    }
+    if ([appController_ respondsToSelector:@selector(openLicenseWindow)]) {
+        [appController_ openLicenseWindow];
     }
 }
 

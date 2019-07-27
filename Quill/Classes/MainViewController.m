@@ -8,6 +8,8 @@
 
 #import "MainViewController.h"
 #import "TrieTree.h"
+#import "AppDelegate.h"
+#import "Quill-Swift.h"
 
 @interface MainViewController () <NSWindowDelegate> {
     TrieTree *trieTree_;
@@ -43,7 +45,10 @@
     [textView_ setAutomaticQuoteSubstitutionEnabled:NO];
     [tableView_ setAllowsMultipleSelection:NO];
     [tableView_ setDoubleAction:@selector(tableViewCellDidDoubleClick:)];
-    [self updateButtonsState];
+    NSMenu *menu = [NSMenu new];
+    [menu addItemWithTitle:@"Add" action:@selector(addItem) keyEquivalent:@""];
+    [menu addItemWithTitle:@"Delete" action:@selector(deleteClickedItem) keyEquivalent:@""];
+    tableView_.menu = menu;
 }
 
 - (void)viewWillAppear {
@@ -65,6 +70,8 @@
         }
         return theEvent;
     }];
+    [tableView_ reloadData];
+    [self updateButtonsState];
 }
 
 - (void)viewDidDisappear {
@@ -81,7 +88,27 @@
 }
 
 - (void)deleteSelectedItem {
-    if (tableView_.selectedRow < 0 || tableView_.selectedRow >= trieTree_.snippets.count) {
+    [self deleteItem:tableView_.selectedRow];
+}
+
+- (void)deleteClickedItem {
+    [self deleteItem:tableView_.clickedRow];
+}
+
+- (void)showPurchaseAlert {
+    NSAlert *alert = [NSAlert new];
+    alert.messageText = @"You need purchase license to add an item.";
+    [alert addButtonWithTitle:@"Purchase License"];
+    [alert addButtonWithTitle:@"Cancel"];
+    NSModalResponse returnCode = [alert runModal];
+    if (returnCode == NSAlertFirstButtonReturn) {
+        AppDelegate *appDelegate = (AppDelegate *)NSApp.delegate;
+        [appDelegate openLicenseWindow];
+    }
+}
+
+- (void)deleteItem:(NSInteger)index {
+    if (index < 0 || index >= trieTree_.snippets.count) {
         return;
     }
     NSAlert *alert = [NSAlert new];
@@ -90,7 +117,7 @@
     [alert addButtonWithTitle:@"Cancel"];
     [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
         if (returnCode == NSAlertFirstButtonReturn) {
-            [self->trieTree_ removeSnippetWithKey:self->trieTree_.snippets[self->tableView_.selectedRow][0]];
+            [self->trieTree_ removeSnippetWithKey:self->trieTree_.snippets[index][0]];
             [self->tableView_ deselectAll:self];
             [self->tableView_ reloadData];
             [self updateButtonsState];
@@ -98,9 +125,12 @@
     }];
 }
 
-#pragma mark - IBActions
+- (void)addItem {
+    if (![LicenseManagerForObjC isActivated]) {
+        [self showPurchaseAlert];
+        return;
+    }
 
-- (IBAction)pressAdd:(id)sender {
     NSString *new_abbreviation;
 
     NSAlert *alert = [NSAlert new];
@@ -112,7 +142,7 @@
     [input setPlaceholderString:@"`img"];
     [alert setAccessoryView:input];
     [[alert window] setInitialFirstResponder:input];
-    
+
     NSInteger button = [alert runModal];
 
     if (button == NSAlertFirstButtonReturn) {
@@ -121,13 +151,19 @@
     } else {
         new_abbreviation = nil;
     }
-    
+
     if (new_abbreviation) {
         [trieTree_ addSnippetWithKey:new_abbreviation andValue:@""];
         [tableView_ reloadData];
         [tableView_ selectRowIndexes:[NSIndexSet indexSetWithIndex:trieTree_.snippets.count-1] byExtendingSelection:NO];
         [textView_.window makeFirstResponder:textView_];
     }
+}
+
+#pragma mark - IBActions
+
+- (IBAction)pressAdd:(id)sender {
+    [self addItem];
 }
 
 - (IBAction)pressSave:(id)sender {
@@ -145,7 +181,11 @@
 #pragma mark - NSTableView Data Source
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    return trieTree_.snippets.count;
+    if (LicenseManagerForObjC.isActivated) {
+        return trieTree_.snippets.count;
+    } else {
+        return 1;
+    }
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
