@@ -32,25 +32,33 @@
     NSDictionary *options = @{(__bridge id) kAXTrustedCheckOptionPrompt : @YES};
     accessibilityEnabled = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef) options);
 
-#ifdef DEBUG
-    [self openMenuWindow];
-#else
     if (!accessibilityEnabled) {
-        NSAlert *alert = [NSAlert new];
-        alert.messageText = @"Add Quill.app to the list in Accessibility preference pane.";
-        [alert addButtonWithTitle:@"Restart Quill"];
-        [alert addButtonWithTitle:@"Quit"];
-        alert.informativeText = @"(System Preferences > Security & Privacy > Privacy > Accessibility)\n\nAnd you need to restart this app.";
-        NSModalResponse response = [alert runModal];
-        if (response == NSAlertFirstButtonReturn) {
-            [NSApp relaunchAfterDelay:0.5];
-        } else if (response == NSAlertSecondButtonReturn) {
-            [NSApp terminate:nil];
-        }
+        [self showAccessibilityAlert];
     } else {
         [self openMenuWindow];
     }
-#endif
+}
+
+- (void)showAccessibilityAlert {
+    NSAlert *alert = [NSAlert new];
+    alert.messageText = @"Add Quill.app to the list in Accessibility preference pane.";
+    [alert addButtonWithTitle:@"Restart Quill"];
+    NSButton *preferenceButton = [alert addButtonWithTitle:@"Open System Preferences"];
+    [preferenceButton setTarget:self];
+    [preferenceButton setAction:@selector(openPreference)];
+    [alert addButtonWithTitle:@"Quit"];
+    alert.informativeText = @"Go to System Preferences > Security & Privacy > Privacy > Accessibility\nDrag & Drop Quill.app into the list and you need restart this app.";
+
+    NSModalResponse response = [alert runModal];
+    if (response == NSAlertFirstButtonReturn) {
+        [NSApp relaunchAfterDelay:0.5];
+    } else if (response == NSAlertThirdButtonReturn) {
+        [NSApp terminate:nil];
+    }
+}
+
+- (void)openPreference {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"]];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
