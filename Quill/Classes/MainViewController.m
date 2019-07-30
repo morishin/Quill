@@ -63,11 +63,12 @@
             // ⌘W
             [self.view.window performClose:nil];
             return (NSEvent *)nil;
-        } else if ([theEvent keyCode] == 51){
-            if (self.view.window.firstResponder == self.tableView) {
-                [self deleteSelectedItem];
-            }
         }
+//        } else if ([theEvent keyCode] == 51){
+//            if (self.view.window.firstResponder == self.tableView) {
+//                [self deleteSelectedItem];
+//            }
+//        }
         return theEvent;
     }];
     [tableView_ reloadData];

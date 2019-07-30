@@ -36,8 +36,8 @@ class LicenseWindowController: NSWindowController {
     }
 }
 
-extension LicenseWindowController: NSTextFieldDelegate {
-    func controlTextDidChange(_ obj: Notification) {
-        useLicenseButton.isEnabled = !emailTextField.stringValue.isEmpty && !licenseKeyTextField.stringValue.isEmpty
-    }
-}
+//extension LicenseWindowController: NSTextFieldDelegate {
+//    func controlTextDidChange(_ obj: Notification) {
+//        useLicenseButton.isEnabled = !emailTextField.stringValue.isEmpty && !licenseKeyTextField.stringValue.isEmpty
+//    }
+//}
