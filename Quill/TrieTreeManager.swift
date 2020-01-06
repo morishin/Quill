@@ -11,7 +11,7 @@ class TrieTreeManager: NSObject {
         if let contents = try? NSArray(contentsOf: ConfigManager.configFilePath(type: .snippets), error: ()), let casted = contents as? [[String]] {
             snippets = casted
         } else {
-            snippets = [["img", "<img src=\"\" width=\"320\"/>"]]
+            snippets = [["`img", "<img src=\"\" width=\"320\"/>"]]
         }
         super.init()
         snippets.forEach { tree.insertValue(for: $0[0], value: $0[1]) }

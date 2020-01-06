@@ -508,6 +508,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.morishin.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Quill;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -536,6 +537,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.morishin.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Quill;
 				PROVISIONING_PROFILE_SPECIFIER = "";
