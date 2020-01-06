@@ -7,12 +7,11 @@
 //
 
 #import "MainViewController.h"
-#import "TrieTree.h"
 #import "AppDelegate.h"
 #import "Quill-Swift.h"
 
 @interface MainViewController () <NSWindowDelegate> {
-    TrieTree *trieTree_;
+    TrieTreeManager *trieTree_;
     NSTextView *textView_;
     NSTableView *tableView_;
     __weak NSView *emptyView_;
@@ -33,7 +32,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        trieTree_ = [TrieTree sharedTrieTree];
+        trieTree_ = [TrieTreeManager shared];
         shouldSuppressConfirm = NO;
         isConfirmShown = NO;
     }
@@ -84,7 +83,13 @@
     if (tableView_.selectedRow < 0 || tableView_.selectedRow >= trieTree_.snippets.count) {
         return;
     }
-    [trieTree_ addSnippetWithKey:trieTree_.snippets[tableView_.selectedRow][0] andValue:[NSString stringWithString:textView_.string]];
+
+    NSError *saveError = nil;
+    [trieTree_ addSnippetWith:trieTree_.snippets[tableView_.selectedRow][0] value:[NSString stringWithString:textView_.string] error:&saveError];
+    if (saveError != nil) {
+        [self showFailedToSaveAlert];
+    }
+
     [self updateButtonsState];
 }
 
@@ -94,6 +99,13 @@
 
 - (void)deleteClickedItem {
     [self deleteItem:tableView_.clickedRow];
+}
+
+- (void)showFailedToSaveAlert {
+    NSAlert *alert = [NSAlert new];
+    alert.messageText = @"Failed to save snippets.";
+    [alert addButtonWithTitle:@"Close"];
+    [alert runModal];
 }
 
 - (void)showPurchaseAlert {
@@ -118,7 +130,14 @@
     [alert addButtonWithTitle:@"Cancel"];
     [alert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse returnCode) {
         if (returnCode == NSAlertFirstButtonReturn) {
-            [self->trieTree_ removeSnippetWithKey:self->trieTree_.snippets[index][0]];
+            NSError *saveError = nil;
+            [self->trieTree_ removeSnippetWith:self->trieTree_.snippets[index][0] error:&saveError];
+            if (saveError != nil) {
+                [self showFailedToSaveAlert];
+                [self updateButtonsState];
+                return;
+            }
+
             [self->tableView_ deselectAll:self];
             [self->tableView_ reloadData];
             [self updateButtonsState];
@@ -154,7 +173,11 @@
     }
 
     if (new_abbreviation) {
-        [trieTree_ addSnippetWithKey:new_abbreviation andValue:@""];
+        NSError *saveError = nil;
+        [trieTree_ addSnippetWith:new_abbreviation value:@"" error:&saveError];
+        if (saveError != nil) {
+            [self showFailedToSaveAlert];
+        }
         [tableView_ reloadData];
         [tableView_ selectRowIndexes:[NSIndexSet indexSetWithIndex:trieTree_.snippets.count-1] byExtendingSelection:NO];
         [textView_.window makeFirstResponder:textView_];
@@ -231,7 +254,11 @@
 
 - (void)tableView:(NSTableView *)tableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     if (![object isEqualToString:@""]) {
-        [trieTree_ updateSnippetKeyFrom:trieTree_.snippets[row][0] To:(NSString *)object];
+        NSError *saveError = nil;
+        [trieTree_ addSnippetWith:trieTree_.snippets[row][0] value:(NSString *)object error:&saveError];
+        if (saveError != nil) {
+            [self showFailedToSaveAlert];
+        }
         [tableView reloadData];
     }
 }

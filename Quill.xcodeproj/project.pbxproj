@@ -3,13 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		5B05766522E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B05766422E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m */; };
 		5B4B622922E232FB0019C2A3 /* NSFileManager+DirectoryLocations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4B622722E232FB0019C2A3 /* NSFileManager+DirectoryLocations.m */; };
 		5B65CDAD22C683A5008E527F /* NSApplication+SelfRelaunch.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B65CDAB22C683A5008E527F /* NSApplication+SelfRelaunch.m */; };
+		5BE1AD1723C236D3004D33F4 /* TrieSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5BE1AD1623C236D3004D33F4 /* TrieSwift */; };
+		5BE1AD1923C2385C004D33F4 /* TrieTreeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1AD1823C2385C004D33F4 /* TrieTreeManager.swift */; };
+		5BEC5C7D23C365820001B0CB /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC5C7C23C365820001B0CB /* AppController.swift */; };
+		5BEC5C7F23C366250001B0CB /* KeyMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEC5C7E23C366250001B0CB /* KeyMonitor.swift */; };
 		5BFBDEAE22EB2E5400F26D63 /* LicenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFBDEAC22EB2E5400F26D63 /* LicenseManager.swift */; };
 		5BFBDEAF22EB2E5400F26D63 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFBDEAD22EB2E5400F26D63 /* ConfigManager.swift */; };
 		5BFBDEB122EB3C9000F26D63 /* String+HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFBDEB022EB3C9000F26D63 /* String+HMAC.swift */; };
@@ -19,9 +23,6 @@
 		C8430683183C95010096ACCC /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8430681183C95010096ACCC /* MainViewController.xib */; };
 		C869F11E18340A3600F00417 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C869F11D18340A3600F00417 /* AppDelegate.m */; };
 		C869F12218340A6D00F00417 /* trie.c in Sources */ = {isa = PBXBuildFile; fileRef = C869F12018340A6D00F00417 /* trie.c */; };
-		C869F128183470AB00F00417 /* KeyMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = C869F127183470AB00F00417 /* KeyMonitor.m */; };
-		C869F12B1834757000F00417 /* TrieTree.m in Sources */ = {isa = PBXBuildFile; fileRef = C869F12A1834757000F00417 /* TrieTree.m */; };
-		C869F12E18347B0B00F00417 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = C869F12D18347B0B00F00417 /* AppController.m */; };
 		C8F20A11184ADE36007722AD /* NSTextView+Command.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F20A10184ADE36007722AD /* NSTextView+Command.m */; };
 		C8F20A14184B3911007722AD /* NSTextField+Command.m in Sources */ = {isa = PBXBuildFile; fileRef = C8F20A13184B3911007722AD /* NSTextField+Command.m */; };
 		C8FDE63F181E6B1C002896A7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8FDE63E181E6B1C002896A7 /* Cocoa.framework */; };
@@ -51,6 +52,9 @@
 		5B4B622822E232FB0019C2A3 /* NSFileManager+DirectoryLocations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+DirectoryLocations.h"; sourceTree = "<group>"; };
 		5B65CDAB22C683A5008E527F /* NSApplication+SelfRelaunch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSApplication+SelfRelaunch.m"; path = "Classes/NSApplication+SelfRelaunch.m"; sourceTree = "<group>"; };
 		5B65CDAC22C683A5008E527F /* NSApplication+SelfRelaunch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSApplication+SelfRelaunch.h"; path = "Classes/NSApplication+SelfRelaunch.h"; sourceTree = "<group>"; };
+		5BE1AD1823C2385C004D33F4 /* TrieTreeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrieTreeManager.swift; sourceTree = "<group>"; };
+		5BEC5C7C23C365820001B0CB /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
+		5BEC5C7E23C366250001B0CB /* KeyMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyMonitor.swift; sourceTree = "<group>"; };
 		5BFBDEAB22EB2E5400F26D63 /* Quill-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Quill-Bridging-Header.h"; sourceTree = "<group>"; };
 		5BFBDEAC22EB2E5400F26D63 /* LicenseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LicenseManager.swift; sourceTree = "<group>"; };
 		5BFBDEAD22EB2E5400F26D63 /* ConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
@@ -64,12 +68,6 @@
 		C869F11D18340A3600F00417 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Classes/AppDelegate.m; sourceTree = "<group>"; };
 		C869F12018340A6D00F00417 /* trie.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trie.c; sourceTree = "<group>"; };
 		C869F12118340A6D00F00417 /* trie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trie.h; sourceTree = "<group>"; };
-		C869F126183470AA00F00417 /* KeyMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyMonitor.h; path = Classes/KeyMonitor.h; sourceTree = "<group>"; };
-		C869F127183470AB00F00417 /* KeyMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeyMonitor.m; path = Classes/KeyMonitor.m; sourceTree = "<group>"; };
-		C869F1291834757000F00417 /* TrieTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TrieTree.h; path = Classes/TrieTree.h; sourceTree = "<group>"; };
-		C869F12A1834757000F00417 /* TrieTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TrieTree.m; path = Classes/TrieTree.m; sourceTree = "<group>"; };
-		C869F12C18347B0B00F00417 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = Classes/AppController.h; sourceTree = "<group>"; };
-		C869F12D18347B0B00F00417 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppController.m; path = Classes/AppController.m; sourceTree = "<group>"; };
 		C8F20A0F184ADE36007722AD /* NSTextView+Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTextView+Command.h"; path = "Classes/NSTextView+Command.h"; sourceTree = "<group>"; };
 		C8F20A10184ADE36007722AD /* NSTextView+Command.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTextView+Command.m"; path = "Classes/NSTextView+Command.m"; sourceTree = "<group>"; };
 		C8F20A12184B3911007722AD /* NSTextField+Command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTextField+Command.h"; path = "Classes/NSTextField+Command.h"; sourceTree = "<group>"; };
@@ -94,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BE1AD1723C236D3004D33F4 /* TrieSwift in Frameworks */,
 				C8FDE63F181E6B1C002896A7 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -190,12 +189,9 @@
 				5B4B622622E230C90019C2A3 /* Quill.entitlements */,
 				C869F11C18340A3600F00417 /* AppDelegate.h */,
 				C869F11D18340A3600F00417 /* AppDelegate.m */,
-				C869F126183470AA00F00417 /* KeyMonitor.h */,
-				C869F127183470AB00F00417 /* KeyMonitor.m */,
-				C869F1291834757000F00417 /* TrieTree.h */,
-				C869F12A1834757000F00417 /* TrieTree.m */,
-				C869F12C18347B0B00F00417 /* AppController.h */,
-				C869F12D18347B0B00F00417 /* AppController.m */,
+				5BEC5C7E23C366250001B0CB /* KeyMonitor.swift */,
+				5BE1AD1823C2385C004D33F4 /* TrieTreeManager.swift */,
+				5BEC5C7C23C365820001B0CB /* AppController.swift */,
 				C843067F183C95010096ACCC /* MainViewController.h */,
 				C8430680183C95010096ACCC /* MainViewController.m */,
 				C8430681183C95010096ACCC /* MainViewController.xib */,
@@ -239,6 +235,9 @@
 			dependencies = (
 			);
 			name = Quill;
+			packageProductDependencies = (
+				5BE1AD1623C236D3004D33F4 /* TrieSwift */,
+			);
 			productName = Snippet;
 			productReference = C8FDE63B181E6B1C002896A7 /* Quill.app */;
 			productType = "com.apple.product-type.application";
@@ -297,6 +296,9 @@
 				Base,
 			);
 			mainGroup = C8FDE632181E6B1C002896A7;
+			packageReferences = (
+				5BE1AD1523C236D3004D33F4 /* XCRemoteSwiftPackageReference "trie-swift" */,
+			);
 			productRefGroup = C8FDE63C181E6B1C002896A7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -335,9 +337,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B05766522E0BF82004D792A /* NSPasteboard+NSPasteboard_Stash.m in Sources */,
-				C869F12B1834757000F00417 /* TrieTree.m in Sources */,
-				C869F12E18347B0B00F00417 /* AppController.m in Sources */,
-				C869F128183470AB00F00417 /* KeyMonitor.m in Sources */,
+				5BE1AD1923C2385C004D33F4 /* TrieTreeManager.swift in Sources */,
+				5BEC5C7D23C365820001B0CB /* AppController.swift in Sources */,
+				5BEC5C7F23C366250001B0CB /* KeyMonitor.swift in Sources */,
 				C869F11E18340A3600F00417 /* AppDelegate.m in Sources */,
 				5BFBDEAF22EB2E5400F26D63 /* ConfigManager.swift in Sources */,
 				5B4B622922E232FB0019C2A3 /* NSFileManager+DirectoryLocations.m in Sources */,
@@ -502,7 +504,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Quill/Quill-Prefix.pch";
 				INFOPLIST_FILE = "Quill/Quill-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.morishin.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Quill;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -527,7 +532,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Quill/Quill-Prefix.pch";
 				INFOPLIST_FILE = "Quill/Quill-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "me.morishin.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = Quill;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -610,6 +618,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5BE1AD1523C236D3004D33F4 /* XCRemoteSwiftPackageReference "trie-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/morishin/trie-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5BE1AD1623C236D3004D33F4 /* TrieSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5BE1AD1523C236D3004D33F4 /* XCRemoteSwiftPackageReference "trie-swift" */;
+			productName = TrieSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C8FDE633181E6B1C002896A7 /* Project object */;
 }

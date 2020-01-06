@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "AppController.h"
 #import "NSApplication+SelfRelaunch.h"
 #import "Quill-Swift.h"
 
