@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "TrieSwift",
+        "repositoryURL": "https://github.com/morishin/trie-swift.git",
+        "state": {
+          "branch": "master",
+          "revision": "9bb36f8bc30a1f95741ffb74f314b94d6f4c2015",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
